@@ -6,7 +6,7 @@ from ShangBiaoProject.items import ShangbiaoprojectItem
 
 class ShangbiaoSpider(scrapy.Spider):
     name = 'shangbiao'
-    allowed_domains = ['http://sbgg.saic.gov.cn']
+    #allowed_domains = ['http://sbgg.saic.gov.cn']
     start_urls = ['http://sbgg.saic.gov.cn:9080/']
 
     def start_requests(self):
