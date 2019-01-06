@@ -12,4 +12,4 @@ class ShangbiaoprojectItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
-    images = scrapy.Field()
+    image = scrapy.Field()

@@ -15,6 +15,10 @@ SPIDER_MODULES = ['ShangBiaoProject.spiders']
 NEWSPIDER_MODULE = 'ShangBiaoProject.spiders'
 
 
+MONGO_URI = 'mongodb://159.89.204.226:27017'
+MONGO_DATABASE = 'Brand'
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ShangBiaoProject (+http://www.yourdomain.com)'
 
@@ -39,12 +43,12 @@ DOWNLOAD_DELAY = 1
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {
-   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-   'Accept-Language': 'en',
-   'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
-   'Host': 'sbgg.saic.gov.cn:9080'
-}
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#   'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
+#   'Host': 'sbgg.saic.gov.cn:9080'
+#}
 
 #LOG_LEVEL = 'WARNING'
 
@@ -69,7 +73,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'ShangBiaoProject.pipelines.ShangbiaoprojectPipeline': 300,
+   'ShangBiaoProject.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
