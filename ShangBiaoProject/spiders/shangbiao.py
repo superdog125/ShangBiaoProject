@@ -69,7 +69,7 @@ class ShangbiaoSpider(scrapy.Spider):
             print('%sall the pic has been saved, trying to next issue...' % self.num)
             if int(self.num) < int(self.maxnum):
                 self.num = str(int(self.num) + 1)
-                print('% pic have been scrawling...' % self.num)
+                print('%s pic have been scrawling...' % self.num)
                 try:
                     self.start_requests(self)
                 except Exception as e:

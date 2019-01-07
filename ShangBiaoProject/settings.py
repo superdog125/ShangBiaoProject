@@ -18,6 +18,10 @@ NEWSPIDER_MODULE = 'ShangBiaoProject.spiders'
 MONGO_URI = 'mongodb://159.89.204.226:27017'
 MONGO_DATABASE = 'Brand'
 
+REDIS_URL = 'redis://root:54321@159.89.204.226:6379'
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ShangBiaoProject (+http://www.yourdomain.com)'
@@ -74,6 +78,7 @@ DOWNLOAD_DELAY = 1
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'ShangBiaoProject.pipelines.MongoPipeline': 300,
+   'scrapy_redis.pipelines.RedisPipeline': 301
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
