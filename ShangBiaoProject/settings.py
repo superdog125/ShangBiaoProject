@@ -18,7 +18,7 @@ NEWSPIDER_MODULE = 'ShangBiaoProject.spiders'
 MONGO_URI = 'mongodb://159.89.204.226:27017'
 MONGO_DATABASE = 'Brand'
 
-REDIS_URL = 'redis://root:54321@159.89.204.226:6379'
+REDIS_URL = 'redis://root:allen@159.89.204.226:6379'
 
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"

@@ -3,6 +3,7 @@ from scrapy import Spider, Request
 import scrapy
 import json
 from ShangBiaoProject.items import ShangbiaoprojectItem
+import time
 
 class ShangbiaoSpider(scrapy.Spider):
     name = 'shangbiao'
@@ -23,7 +24,7 @@ class ShangbiaoSpider(scrapy.Spider):
 
     imaglist = []
     pageSize = ''      # 每页的条数
-    totalPage = ''        # 总页数
+    global totalPage        # 总页数
     def start_requests(self):
         yield Request(self.annNum_url.format(num=self.num), self.parse_typeCode)
 
@@ -57,23 +58,38 @@ class ShangbiaoSpider(scrapy.Spider):
             item['image'] = imag
             yield item
         # 下一页解析
-        if int(self.pageNum) < self.totalPage:
+        self.pageNum = str(int(self.pageNum) + 1)
+        yield Request(self.image_url.format(id=self.id, pageNum=self.pageNum, flag=self.flag), self.parse_next)
+
+
+    def parse_next(self, response):
+        if int(self.pageNum) < 50:
             try:
-                self.pageNum = str(int(self.pageNum)+1)
-                yield Request(self.image_url.format(id=self.id, pageNum=self.pageNum, flag=self.flag), self.parse_images)
+                result = json.loads(response.text)
+                self.imaglist = result.get('imaglist')
+                item = ShangbiaoprojectItem()
+                # 每一页的图片解析保存
+                for imag in self.imaglist:
+                    item['image'] = imag
+                    yield item
+                # 请求下一页
+                time.sleep(1)
+                self.pageNum = str(int(self.pageNum) + 1)
+                yield Request(self.image_url.format(id=self.id, pageNum=self.pageNum, flag=self.flag), self.parse_next)
                 print('next page.....')
             except Exception as e:
                 print(e)
-                pass
+
         else:
+            # 下一期解析
             print('%sall the pic has been saved, trying to next issue...' % self.num)
             if int(self.num) < int(self.maxnum):
                 self.num = str(int(self.num) + 1)
                 print('%s pic have been scrawling...' % self.num)
+                time.sleep(1)
                 try:
-                    self.start_requests(self)
+                    yield Request(self.annNum_url.format(num=self.num), self.parse_typeCode)
                 except Exception as e:
                     print(e)
-                    pass
             else:
                 print('all issue pic has been scrawl...')
